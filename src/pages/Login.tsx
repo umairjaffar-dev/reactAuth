@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useLogin } from "../api/useLogin";
 import { useUser } from "../store/useUser";
 import { userLoginSchema } from "../api/apiResponseTypes/userLogin.types";
+import { browserStorageKeys } from "../utils/constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,7 +24,9 @@ const Login = () => {
     loginUser(data, {
       onSuccess: (data) => {
         console.log("success data", data);
-        localStorage.setItem("accessToken", data.accessToken);
+        if (persistLogin) {
+          localStorage.setItem(browserStorageKeys.refreshToken, data.refreshToken);
+        }
         setUser(data);
         navigate("/");
       },
