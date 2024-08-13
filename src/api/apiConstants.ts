@@ -1,7 +1,21 @@
+import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_AUTH_URL as string;
 
-const BASE_URL:string = import.meta.env.AUTH_URL
+export const sttLiveServiceUrl = import.meta.env
+  .VITE_STT_LIVE_SERVICE_URL as string;
 
-export const loginApi:string = `http://192.168.18.62:6060/api/auth/login/`
-export const logoutApi:string = `http://192.168.18.62:6060/api/auth/logout/`
-export const refrishApi:string = `http://192.168.18.62:6060/api/auth/refresh/`
+// AUTH API
+export const loginApi = `${BASE_URL}api/auth/login/`;
+export const logoutApi = `${BASE_URL}api/auth/logout/`;
+export const refrishApi = `${BASE_URL}api/auth/refresh/`;
+
+// STT API
+export const getLiveTranscriptionsUrl = `${sttLiveServiceUrl}sttData/`;
+
+export const axiosPrivate = axios.create({
+  headers: {
+    "Content-Type": "application/json",
+  },
+  withCredentials: true,
+});

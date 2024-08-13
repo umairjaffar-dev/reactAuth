@@ -4,6 +4,7 @@ import { browserStorageKeys } from "../utils/constants";
 
 type UserActionType = {
   setUser: (user: userLoginType) => void;
+  updateAccessToken: (accessToken: string) => void;
   logoutUser: () => void;
 };
 const initialUserState = {
@@ -22,6 +23,10 @@ export const useUser = create<userLoginType & UserActionType>((set) => ({
 
   setUser(user) {
     set({...user});
+  },
+
+  updateAccessToken(accessToken) {
+    set({ accessToken });
   },
 
   logoutUser() {
