@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useLogin } from "../api/useLogin";
 import { useUser } from "../store/useUser";
-import { userLoginSchema } from "../api/apiResponseTypes/userLogin.types";
 import { browserStorageKeys } from "../utils/constants";
+// import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [persistLogin, setPersistLogin] = useState<boolean>(false);
-  const { mutate: loginUser, isLoading, isError, error } = useLogin();
+  const { mutate: loginUser } = useLogin();
 
   const handleSubmitLogin = () => {
     const data = {
@@ -23,16 +22,15 @@ const Login = () => {
     };
     loginUser(data, {
       onSuccess: (data) => {
-        console.log("success data", data);
         if (persistLogin) {
           localStorage.setItem(browserStorageKeys.refreshToken, data.refreshToken);
         }
         setUser(data);
         navigate("/");
       },
-      onError: (error: unknown) => {
-        toast.error("Internal Server Error");
-      },
+      // onError: (error: unknown) => {
+      //   toast.error("Internal Server Error");
+      // },
     });
   };
 

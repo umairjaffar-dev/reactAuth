@@ -12,30 +12,33 @@ const AuthWrapper = () => {
     localStorage.getItem(browserStorageKeys.refreshToken) ?? "";
   const refresh = useRefreshToken();
 
-  useEffect(() => {
-    async function refreshUser() {
-      if ((refreshToken && userName) || !refreshToken) {
-        setIsLoading(false);
-        return;
-      }
-      try {
-        const data = await refresh();
-        setUser(data.data);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
+  async function refreshUser() {
+    if ((refreshToken && userName) || !refreshToken) {
+      setIsLoading(false);
+      return;
     }
-    refreshUser().catch((error: unknown) => {
-      console.log(error);
-    });
+
+    try {
+      const data = await refresh();
+      setUser(data.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  // In effect we refresh the user.
+  useEffect(() => {
+    refreshUser();
   }, [refreshToken, userName, setUser, refresh]);
 
   if (isLoading) {
     return (
-      <div className="w-full flex justify-center items-center"> Loading</div>
+      <div className="w-full flex justify-center items-center">Loading</div>
     );
   }
+
+  // console.log("userName", userName);
 
   if (!userName) {
     return <Navigate to="/login" />;

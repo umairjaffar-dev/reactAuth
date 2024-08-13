@@ -21,7 +21,7 @@ export const useUser = create<userLoginType & UserActionType>((set) => ({
   ...initialUserState,
 
   setUser(user) {
-    set(user);
+    set({...user});
   },
 
   logoutUser() {

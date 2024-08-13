@@ -5,9 +5,7 @@ import { useUser } from "../store/useUser";
 export const useRefreshToken = () => {
   const { refreshToken: token } = useUser();
 
-   async function refreshToken() {
+   return async function refreshToken() {
     return await axios.post(refrishApi, { refreshToken: token || "" });
   };
-
-  return refreshToken
 };
