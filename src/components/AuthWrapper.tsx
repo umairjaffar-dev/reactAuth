@@ -11,7 +11,7 @@ const AuthWrapper = () => {
   const refreshToken =
     localStorage.getItem(browserStorageKeys.refreshToken) ?? "";
   const refresh = useRefreshToken();
-
+  
   async function refreshUser() {
     if ((refreshToken && userName) || !refreshToken) {
       setIsLoading(false);

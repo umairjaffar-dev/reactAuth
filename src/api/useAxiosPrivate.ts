@@ -11,13 +11,7 @@ export const useAxiosPrivate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-//   const refreshTheToken = async () => {
-//     const res = await refresh();
-//     console.log("data", res);
-//   };
-
   useEffect(() => {
-    // refreshTheToken();
     const retriedRequests = new Set<string>();
     // Add Access Token to the header of each api request.
     const requestInterceptor = axiosPrivate.interceptors.request.use(
@@ -36,7 +30,7 @@ export const useAxiosPrivate = () => {
      * Get response of api if successfull.
      * Check error if response is not successfull. if response status code is 401 then
      * our token is expire we need to refresh the token. and if status code is 402 then both
-     * tokens are expire navigate to login page.
+     * tokens are expire then navigate to login page.
      */
     const responseInterceptor = axiosPrivate.interceptors.response.use(
       (response) => {
