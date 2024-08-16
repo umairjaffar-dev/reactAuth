@@ -45,7 +45,7 @@ const AuthWrapper = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full h-screen">
       <Header />
       <Outlet />
     </div>

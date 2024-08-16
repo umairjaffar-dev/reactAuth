@@ -10,8 +10,6 @@ export const loginApi = `${BASE_URL}api/auth/login/`;
 export const logoutApi = `${BASE_URL}api/auth/logout/`;
 export const refrishApi = `${BASE_URL}api/auth/refresh/`;
 
-// STT API
-export const getLiveTranscriptionsUrl = `${sttLiveServiceUrl}sttData/`;
 
 export const axiosPrivate = axios.create({
   headers: {

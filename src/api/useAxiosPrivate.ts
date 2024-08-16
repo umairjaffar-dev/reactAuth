@@ -16,10 +16,9 @@ export const useAxiosPrivate = () => {
     // Add Access Token to the header of each api request.
     const requestInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (!config.headers.Authorization) {
+        if (!config.headers.Authorization)
           config.headers.Authorization = `Bearer ${accessToken}`;
-          return config;
-        }
+        return config;
       },
       (error: AxiosError) => {
         return Promise.reject(new Error(error.message));
@@ -70,8 +69,8 @@ export const useAxiosPrivate = () => {
               );
             }
           }
-           //if refresh token is expired
-           if (responseStatus === 403) {
+          //if refresh token is expired
+          if (responseStatus === 403) {
             navigate("/login", {
               state: {
                 from: location.pathname + location.search,
@@ -86,10 +85,17 @@ export const useAxiosPrivate = () => {
     );
 
     return () => {
-        axiosPrivate.interceptors.request.eject(requestInterceptor);
-        axiosPrivate.interceptors.response.eject(responseInterceptor);
-      };
-  }, [accessToken, refresh, updateAccessToken, location.pathname, location.search, navigate]);
+      axiosPrivate.interceptors.request.eject(requestInterceptor);
+      axiosPrivate.interceptors.response.eject(responseInterceptor);
+    };
+  }, [
+    accessToken,
+    refresh,
+    updateAccessToken,
+    location.pathname,
+    location.search,
+    navigate,
+  ]);
 
-  return axiosPrivate
+  return axiosPrivate;
 };
