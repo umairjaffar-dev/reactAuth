@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import AuthWrapper from "./components/AuthWrapper";
 import NotFound from "./pages/NotFound";
+import CanvasApi from "./pages/CanvasApi";
 // http://192.168.18.58:7177/login
 
 const router = createBrowserRouter(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
     </Route>,
+    <Route path="/" element={<About />} />,
     <Route path="/login" element={<Login />} />,
     <Route path="*" element={<NotFound />} />,
   ])
@@ -27,7 +29,8 @@ const router = createBrowserRouter(
 const App = () => {
   return (
     <div className="w-screen h-screen bg-white">
-      <RouterProvider router={router} />
+      <CanvasApi />
+      {/* <RouterProvider router={router} /> */}
     </div>
   );
 };
