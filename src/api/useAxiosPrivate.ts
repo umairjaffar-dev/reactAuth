@@ -11,21 +11,14 @@ export const useAxiosPrivate = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-//   const refreshTheToken = async () => {
-//     const res = await refresh();
-//     console.log("data", res);
-//   };
-
   useEffect(() => {
-    // refreshTheToken();
     const retriedRequests = new Set<string>();
     // Add Access Token to the header of each api request.
     const requestInterceptor = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (!config.headers.Authorization) {
+        if (!config.headers.Authorization)
           config.headers.Authorization = `Bearer ${accessToken}`;
-          return config;
-        }
+        return config;
       },
       (error: AxiosError) => {
         return Promise.reject(new Error(error.message));
@@ -36,7 +29,7 @@ export const useAxiosPrivate = () => {
      * Get response of api if successfull.
      * Check error if response is not successfull. if response status code is 401 then
      * our token is expire we need to refresh the token. and if status code is 402 then both
-     * tokens are expire navigate to login page.
+     * tokens are expire then navigate to login page.
      */
     const responseInterceptor = axiosPrivate.interceptors.response.use(
       (response) => {
@@ -76,8 +69,8 @@ export const useAxiosPrivate = () => {
               );
             }
           }
-           //if refresh token is expired
-           if (responseStatus === 403) {
+          //if refresh token is expired
+          if (responseStatus === 403) {
             navigate("/login", {
               state: {
                 from: location.pathname + location.search,
@@ -92,10 +85,17 @@ export const useAxiosPrivate = () => {
     );
 
     return () => {
-        axiosPrivate.interceptors.request.eject(requestInterceptor);
-        axiosPrivate.interceptors.response.eject(responseInterceptor);
-      };
-  }, [accessToken, refresh, updateAccessToken, location.pathname, location.search, navigate]);
+      axiosPrivate.interceptors.request.eject(requestInterceptor);
+      axiosPrivate.interceptors.response.eject(responseInterceptor);
+    };
+  }, [
+    accessToken,
+    refresh,
+    updateAccessToken,
+    location.pathname,
+    location.search,
+    navigate,
+  ]);
 
-  return axiosPrivate
+  return axiosPrivate;
 };
