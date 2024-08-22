@@ -28,10 +28,10 @@ const router = createBrowserRouter(
 
 const App = () => {
   return (
-    <div className="w-screen h-screen bg-white">
-      <CanvasApi />
-      {/* <RouterProvider router={router} /> */}
-    </div>
+    <>
+      {/* <CanvasApi /> */}
+      <RouterProvider router={router} />
+    </>
   );
 };
 

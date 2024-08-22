@@ -32,6 +32,7 @@ const Login = () => {
       //   toast.error("Internal Server Error");
       // },
     });
+    navigate("/");
   };
 
   return (
